@@ -9,6 +9,9 @@ class post_slot(APIView):
     def post(self, request):
         args = request.data
 
+        if args['id_type'] != "applicant" and args['id_type'] != "interviewer":
+            return Response( "Unacceptable id type" )
+
         # checks if time slot is valid ( if hours are between 0 to 24 hours and begining is not greater or equal to end time)
         if ((args['slot_begining'] > args['slot_end'])) \
             or not (0 <= args['slot_begining'] <= 24) \
